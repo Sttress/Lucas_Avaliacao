@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Formulário Imobiliária</title>
+	<meta charset="utf-8"></meta>
+    <!-- <link rel="stylesheet" type="text/css" href="estilo.css"> -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+
+body{
+
+padding: 0px;
+margin: 0px;
+font-family: Roboto;
+}
+#container{
+
+width: 40%;
+height: 180px;
+margin: 0px auto;
+margin-top: 150px;
+}
+input{
+
+width: 40%;
+display: block;
+margin-left: 20px;
+margin-bottom: 20px;
+}
+    </style>
+
+</head>
+<body>
+
+	<div id="container">
+
+		<form>
+			<fieldset>
+				<legend>Formulário</legend>
+
+				<div>
+					<label>Rua:<input type="text" id="campo_rua" onblur="requisitar()"></label>
+					<label>CEP:<input type="text" id="campo_cep"></label>
+					<label>UF:<input type="text" id="campo_uf"></label>
+				</div>
+			</fieldset>
+
+		</form>
+		
+	</div>
+
+	<script>
+
+        function requisitar() {
+            const rua = document.getElementById("campo_rua").value;
+
+            axios.post('http://localhost/formulario', {
+                 campo_rua: rua 
+            }).then(function(variavel) {
+                const data = variavel.data;
+                const { cep, uf } = data;
+
+                document.getElementById('campo_uf').value=uf;
+                document.getElementById('campo_cep').value=cep;
+
+
+            }).catch(function(error){
+                console.error(error);
+            });
+        }
+    </script>
+
+</body>
+</html>
